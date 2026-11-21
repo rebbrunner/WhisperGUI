@@ -6,3 +6,10 @@ public/build
 .env.local
 .env.development
 .env.production
+
+# Python
+backend/__pycache__/
+backend/*.py[cd]
+backend/*$py.class
+backend/env/
+backend/*.egg-info/
