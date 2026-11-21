@@ -1,0 +1,24 @@
+html, body {
+    margin: 0;
+    font-family: Arial, Helvetica, sans-serif;
+}
+
+main {
+    background-color: #2D898B;
+    height: 100vh;
+    height: 100dvh;
+    display: grid;
+    grid-auto-flow: row;
+    grid-auto-rows: auto;
+    align-items: center;
+    justify-items: center;
+}
+
+.content {
+    height: 60%;
+    width: 60%;
+    display:grid;
+    grid-template-columns: 5fr 5fr;
+    justify-items: center;
+    align-items: center;
+}

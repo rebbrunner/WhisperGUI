@@ -1,0 +1,8 @@
+# React
+node_modules
+build
+public/build
+.env
+.env.local
+.env.development
+.env.production
