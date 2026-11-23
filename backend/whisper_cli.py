@@ -5,13 +5,14 @@ import re
 from faster_whisper import WhisperModel
 
 class Transcriber:
-    def __init__(self, model_size="base", device="cuda", compute_type="int8"):
+    def __init__(self, model_size="base", device="cuda", compute_type="int8", cache_path='D:/Models/non-ollama/whisper'):
         self.model_size = model_size
         self.device = device
         self.compute_type = compute_type
         self.model = None
         self._setup_dll_paths()
         self.load_model()
+        self.cache_path = cache_path
 
     def _setup_dll_paths(self):
         # Attempt to find NVIDIA DLL paths
@@ -38,7 +39,8 @@ class Transcriber:
             self.model = WhisperModel(
                 self.model_size, 
                 device=self.device, 
-                compute_type=self.compute_type
+                compute_type=self.compute_type,
+                download_root=self.cache_path
             )
             print(f"Model loaded successfully on {self.device}.")
         except Exception as e:
