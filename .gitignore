@@ -13,3 +13,6 @@ backend/*.py[cd]
 backend/*$py.class
 backend/env/
 backend/*.egg-info/
+
+backend/*.wav
+backend/*.txt
