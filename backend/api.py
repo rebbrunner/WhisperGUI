@@ -26,7 +26,7 @@ transcriber = None
 @app.on_event('startup')
 def startup_event():
     global transcriber
-    transcriber = Transcriber()
+    transcriber = Transcriber(os.getenv('CACHE_PATH'))
 
 @app.post('/transcribe')
 async def transcribe_file(file: UploadFile = File(...)):

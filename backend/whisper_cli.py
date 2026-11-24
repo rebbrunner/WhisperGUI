@@ -5,7 +5,7 @@ import re
 from faster_whisper import WhisperModel
 
 class Transcriber:
-    def __init__(self, model_size="base", device="cuda", compute_type="int8", cache_path='D:/Models/non-ollama/whisper'):
+    def __init__(self, cache_path, model_size="base", device="cuda", compute_type="int8"):
         self.model_size = model_size
         self.device = device
         self.compute_type = compute_type
