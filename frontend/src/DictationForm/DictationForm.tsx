@@ -15,7 +15,8 @@ function DictationForm({ btnLbl = 'Process' }: DictationFormProps) {
         const formData = new FormData();
         formData.append('file', blob, "audio.webm");
         
-        const res = await fetch('http://127.0.0.1:8000/transcribe', {
+        const apiUrl = import.meta.env.REACT_APP_API_URL || 'http://127.0.0.1:8000';
+        const res = await fetch(`${apiUrl}/transcribe`, {
             method: 'POST',
             body: formData
         });
