@@ -10,9 +10,9 @@ class Transcriber:
         self.device = device
         self.compute_type = compute_type
         self.model = None
+        self.cache_path = cache_path
         self._setup_dll_paths()
         self.load_model()
-        self.cache_path = cache_path
 
     def _setup_dll_paths(self):
         # Attempt to find NVIDIA DLL paths
