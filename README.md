@@ -9,8 +9,12 @@ Fullstack transcription application meant to run entirely on localhost for now (
 
 Frontend user interface includes a button which toggled on begins recorder, toggled off stops recorder.  Process button triggers transcribe op, which returns text that then displays in the text box in the user interface.
 
-## AI Usage
+## Capabilities
 
+- **voice-input**: Provides the capability to capture audio from the user's microphone and submit the recording for transcription. When the user clicks the microphone icon, it initiates the recording process. Once the recording is stopped, the audio is automatically submitted to the backend for transcription, and the result is displayed in the text area.
+
+## AI Usage
+...
 Only local/open weight models were used to help facilitate build of this application.
 
 Tools used:
