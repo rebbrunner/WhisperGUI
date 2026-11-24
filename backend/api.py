@@ -1,7 +1,8 @@
-from fastapi import FastAPI
+from fastapi import FastAPI, File, UploadFile
 from fastapi.middleware.cors import CORSMiddleware
-from pydantic import BaseModel
-from backend.whisper_cli import Transcriber
+import os
+import tempfile
+from whisper_cli import Transcriber
 
 app = FastAPI(title="Transcriber API")
 
@@ -20,15 +21,26 @@ def startup_event():
     global transcriber
     transcriber = Transcriber()
 
-class TranscribeRequest(BaseModel):
-    input_path: str
 @app.post('/transcribe')
-async def transcribe_path(request: TranscribeRequest):
-    result = transcriber.transcribe(request.input_path)
+async def transcribe_file(file: UploadFile = File(...)):
+    print(f"Received file: {file.filename}")
+    
+    content = await file.read()
+    with tempfile.NamedTemporaryFile(delete=False, mode='wb', suffix=os.path.splitext(file.filename)[1]) as temp_file:
+        temp_file.write(content)
+        temp_path = temp_file.name
+    
+    try:
+        result = transcriber.transcribe(temp_path)
+    finally:
+        if os.path.exists(temp_path):
+            os.remove(temp_path)
+            
     return {
         'transcribed_text': result
     }
 
 if __name__ == '__main__':
+
     import uvicorn
     uvicorn.run(app, host='0.0.0.0', port=8000)
