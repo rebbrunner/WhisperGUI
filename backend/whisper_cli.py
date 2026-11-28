@@ -11,27 +11,7 @@ class Transcriber:
         self.compute_type = compute_type
         self.model = None
         self.cache_path = cache_path
-        self._setup_dll_paths()
         self.load_model()
-
-    def _setup_dll_paths(self):
-        # Attempt to find NVIDIA DLL paths
-        prefix_path = sys.prefix
-        script_dir = os.path.dirname(os.path.abspath(__file__))
-        venv_path = os.path.join(script_dir, "env")
-        base_paths = []
-        if prefix_path:
-            base_paths.append(os.path.join(prefix_path, "Lib", "site-packages", "nvidia"))
-        if os.path.exists(venv_path):
-            base_paths.append(os.path.join(venv_path, "Lib", "site-packages", "nvidia"))
-        for base in base_paths:
-            for sub_dir in ["cublas", "cuda_nvrtc", "cudnn", "cuda_runtime"]:
-                dll_path = os.path.abspath(os.path.join(base, sub_dir, "bin"))
-                if os.path.exists(dll_path):
-                    os.add_dll_directory(dll_path)
-                    # Also add to PATH as a fallback, as some loaders ignore add_dll_directory
-                    os.environ["PATH"] = dll_path + os.pathsep + os.environ.get("PATH", "")
-                    print(f"Added DLL directory and PATH: {dll_path}")
 
     def load_model(self):
         try:
