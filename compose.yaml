@@ -1,0 +1,28 @@
+services:
+  proxy:
+    image: whisper-gui-proxy:0.0.1
+    container_name: whisper-gui-proxy
+    ports:
+      - "8080:80"
+    depends_on:
+      - frontend
+      - backend
+  frontend:
+    image: frontend:0.0.1
+    container_name: frontend
+    env_file:
+      - ./frontend/.env
+  backend:
+    image: backend:0.0.1
+    container_name: backend
+    env_file:
+      - ./backend/.env
+    volumes:
+      - D:/Models/non-ollama/whisper:/models
+    deploy:
+      resources:
+        reservations:
+          devices:
+            - driver: nvidia
+              count: all
+              capabilities: [gpu]
